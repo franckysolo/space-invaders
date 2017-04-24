@@ -1,0 +1,58 @@
+{
+  "name": "space-invaders",
+  "version": "3.0.0",
+  "description": "The Space Invaders original game on browser",
+  "main": "build/bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run lint && webpack --progress --colors",
+    "lint": "eslint --ext .js src || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franckysolo/space-invaders.git"
+  },
+  "keywords": [
+    "Game",
+    "Html5",
+    "Canvas",
+    "Es6"
+  ],
+  "author": "franckysolo <franckysolo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/franckysolo/space-invaders/issues"
+  },
+  "homepage": "https://github.com/franckysolo/space-invaders#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "expose-loader": "^0.7.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "imports-loader": "^0.7.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "postcss-loader": "^1.3.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1"
+  }
+}

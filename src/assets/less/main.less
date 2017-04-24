@@ -1,0 +1,109 @@
+@import '~bootstrap/less/bootstrap';
+@icon-font-path: "~bootstrap/fonts/";
+@img-sprites: "../img/sprites.png";
+#app {
+  margin: 0 auto;
+  width: 100%;
+}
+canvas {
+  margin: 0 auto;
+  display: block;
+  cursor: none;
+}
+
+#space-invaders {
+	width: 400px;
+	height: 400px;
+	margin: auto;
+	position: relative;
+  h1 {
+    text-align: center;
+  }
+}
+
+#ui-header, #ui-footer {
+	width: 400px;
+	height: 50px;
+	background-color: #000;
+	text-align: center;
+}
+
+#ui-header {
+	border-bottom : 2px solid white;
+}
+
+#ui-footer {
+	border-top : 1px solid white;
+}
+
+#score, #level, #life, #icon-life {
+	margin-left: 2px;
+	display: inline-block;
+	width: 190px;
+	height: 50px;
+	color: white;
+	font-variant: small-caps;
+	line-height: 50px;
+	white-space: normal;
+	padding : 1px;
+	float: left;
+}
+
+#life  {
+	padding: 0;
+	margin: 0;
+}
+
+span.ship {
+	width: 28px;
+	height: 16px;
+	display: inline-table;
+	background: url(@img-sprites) no-repeat -277px -20px;
+}
+
+#ui-help {
+	font-size: small;
+}
+
+#game-tool-container {
+  padding-top:20px;
+  background: #000;
+  width: 400px;
+  height: 100%;
+  display: block;
+  position: fixed;
+  right: 0;
+  top:0;
+  bottom:0;
+  overflow-y: auto;
+
+  #game-tool-toggle {
+    background: #000;
+    display: block;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    top:0;
+    color: white;
+    padding:10px;
+    font-size:20px;
+    cursor: pointer;
+  }
+
+  &.close {
+    right: -400px;
+    transition: right ease-in-out 0.5s;
+    #game-tool-toggle {
+      right: 0;
+      transition: right ease-in-out 0.5s;
+    }
+  }
+  &.open {
+    right: 0;
+    transition: right ease-in-out 0.5s;
+    #game-tool-toggle {
+      right: 400px;
+      transition: right ease-in-out 0.5s;
+    }
+  }
+}
