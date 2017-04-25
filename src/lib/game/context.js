@@ -12,7 +12,14 @@ import Sprite from '../core/Sprite'
 
 import Player from './player'
 import Ship from './ship'
+// Invaders
 import SpaceShip from './red-ship'
+import Invader from './invader'
+import Bomb from './bomb'
+import TypeA from './invaders/type-a'
+// import TypeB from './invaders/type-b'
+// import TypeC from './invaders/type-c'
+
 const defaultOptions = {
   sprites: 'src/assets/img/sprites.png',
   canvas: { width: 400, height: 300 }
@@ -31,6 +38,10 @@ class GameContext extends Context {
     this.redShip = null
     this.delayRedShip = this.random(10000, 15000)
     // this.timerRedShip = setTimeout(() => this.newRedShip(), this.delayRedShip)
+    this.invaders = null
+
+    this.randCount = 0
+    this.randMax = this.random(0, 200)
   }
   newRedShip () {
     this.redShip = new SpaceShip()
@@ -49,8 +60,18 @@ class GameContext extends Context {
   // init the game context
   init () {
     this.status = config.GAME_PLAY
-    // this.player.init()
     this.ship.init(this)
+    this.initInvaders()
+    // Game Over Zone
+    this.bunkerZoneY = this.ship.y
+  }
+  // Initialize Invaders
+  initInvaders () {
+    let ai = new Invader('TestA', 0, TypeA)
+    ai.init(this)
+    ai.x = 150
+    ai.y = config.SZ_SPRITE_Y
+    this.invaders = ai
   }
   // game actions
   actions () {
@@ -85,6 +106,17 @@ class GameContext extends Context {
         this.redShip.laser.draw(this.ctx, this.sprites)
       }
     }
+    if (this.invaders.mode !== config.INV_EMPTY) {
+      if (this.invaders.onFire()) {
+        this.invaders.laser.draw(this.ctx, this.sprites)
+      }
+      this.invaders.draw(this.ctx, this.sprites)
+    }
+    this.ctx.strokeStyle = '#ff0000'
+    this.ctx.beginPath()
+    this.ctx.moveTo(0, this.bunkerZoneY)
+    this.ctx.lineTo(400, this.bunkerZoneY)
+    this.ctx.stroke()
   }
   /**
    * Game objects evolutions
@@ -105,6 +137,36 @@ class GameContext extends Context {
         this.timerRedShip = setTimeout(() => this.newRedShip(), this.delayRedShip)
       }
     }
+    if (this.invaders.mode !== config.INV_EMPTY) {
+      this.invaders.evolution(this)
+      if (this.randCount > this.randMax) {
+        // let idx = this.random(0, this.invaders.length - 1)
+        // let idy = this.random(0, this.invaders[0].length - 1)
+        // var invader = this.invaders[idx][idy]
+        if (this.invaders.mode < 2) {
+          this.randMax = this.random(25, 50)
+          if (!this.invaders.onFire() && this.invaders.mode !== config.INV_EMPTY) {
+            this.invaders.laser = new Bomb()
+            this.invaders.armed()
+          }
+          this.randCount = 0
+        }
+      }
+      this.randCount++
+    }
+  }
+  /**
+   * Game object animation
+   * @return void
+   */
+  animations () {
+    if (this.invaders.mode !== config.INV_EMPTY) {
+      this.invaders.animate()
+    }
+    // Animation invader laser bomb
+    if (this.invaders.onFire()) {
+      this.invaders.laser.animate()
+    }
   }
   /**
    * Game collisions
@@ -117,9 +179,17 @@ class GameContext extends Context {
         this.redShip.laser.collision(this, this.redShip)
       }
     }
+    if (this.invaders.mode !== config.INV_EMPTY) {
+      this.invaders.collision(this)
+      if (this.invaders.onFire()) {
+        this.invaders.laser.collision(this, this.invaders)
+      }
+    }
+    console.log('inv lazer', this.invaders.laser)
   }
   // update data game
   update () {
+    this.animations()
     // Game object collisions
     this.collisions()
     // Game objects evolution (moves)
