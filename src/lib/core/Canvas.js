@@ -16,9 +16,9 @@ const defaultOptions = {
 
 class Canvas {
   /**
-   * [constructor description]
-   * @param  {[type]} options [description]
-   * @return {[type]} [description]
+   * Create a new game canvas
+   * @param  {Object} options Canvas options
+   * @return void
    */
   constructor (options) {
     this.options = Object.assign(options, defaultOptions)
@@ -35,8 +35,8 @@ class Canvas {
     }
   }
   /**
-   * [clear description]
-   * @return {[type]} [description]
+   * Clear the canvas
+   * @return void
    */
   clear () {
     this.context.clearRect(0, 0, this.options.width, this.options.height)

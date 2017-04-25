@@ -6,18 +6,18 @@
 
 class Player {
   /**
-   * [constructor description]
-   * @param  {[type]} name [description]
-   * @param  {[type]} options [description]
-   * @return {[type]} [description]
+   * Create a new player
+   * @param  {String} name The player's name
+   * @param  {Object} options The player Options
+   * @return void
    */
   constructor (name, options) {
     this.name = name
     this.options = options || {}
   }
   /**
-   * [init description]
-   * @return {[type]} [description]
+   * Initialize the player datas
+   * @return void
    */
   init () {}
 }

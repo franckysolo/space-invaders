@@ -8,9 +8,9 @@
 
  class Asset {
    /**
-    * [constructor description]
-    * @param  {[type]} name [description]
-    * @return {[type]} [description]
+    * Create a new asset
+    * @param  {String} name the asset's name
+    * @return void
     */
    constructor (name) {
      this.name = name
@@ -21,10 +21,10 @@
      this.y = 0
    }
    /**
-    * [hasCollision description]
-    * @param  {[type]} a [description]
-    * @param  {[type]} b [description]
-    * @return {Boolean} [description]
+    * Detect a collision between two game object
+    * @param  {Object} a The first game object
+    * @param  {Object} b The second game object
+    * @return {Boolean} true if a collision is detect else false
     */
    hasCollision (a, b) {
      if ((b.x >= a.x + a.w) ||

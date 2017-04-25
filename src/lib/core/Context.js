@@ -1,16 +1,17 @@
 /**
-* @author franckysolo
-*
-* @description The game context class
-*/
+ * @author franckysolo
+ *
+ * @description The game context class
+ */
 import Engine from './Engine'
 
 class Context {
   /**
-   * [constructor description]
-   * @param  {[type]} name [description]
-   * @param  {[type]} options [description]
-   * @return {[type]} [description]
+   * Create a new game context
+   *
+   * @param  {String} name The game name
+   * @param  {Object} options The game options
+   * @return void
    */
   constructor (name, options) {
     this.engine = new Engine()
@@ -18,33 +19,48 @@ class Context {
     this.options = options || {}
     this.timer = null
   }
-  // init the cogame context
+  /**
+   * Initialize the game context
+   * @return void
+   */
   init () {
   }
-  // game actions
+  /**
+   * Game player actions
+   * @return void
+   */
   actions () {
   }
-  // draw on canvas
+  /**
+   * Game objects drawing
+   * @return void
+   */
   draw () {
-
+    this.canvas.clear()
   }
-  // evolution game
+  /**
+   * Game objects evolution
+   * @return void
+   */
   evolution () {
   }
-  // update data game
+  /**
+   * Update data game
+   * @return void
+   */
   update () {
   }
   /**
-   * [play description]
-   * @param  {Function} callback [description]
-   * @return {[type]} [description]
+   * The game loop
+   * @param  {Function} callback
+   * @return void
    */
   play (callback) {
     this.timer = this.engine.start(callback)
   }
   /**
-   * [stop description]
-   * @return {[type]} [description]
+   * Stop the game
+   * @return void
    */
   stop () {
     this.engine.stop(this.timer)

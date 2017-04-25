@@ -6,26 +6,41 @@
 
 class Sound {
   /**
-   * [constructor description]
-   * @param  {[type]} resource [description]
-   * @return {[type]} [description]
+   * Create a new game sound
+   *
+   * @param  {String} resource the path of the resource
+   * @return void
    */
   constructor (resource) {
     this.driver = new Audio(resource)
   }
+  /**
+   * Play the audio sound
+   * @return {Void}
+   */
   play () {
     this.driver.play()
   }
+  /**
+   * Pause the audio sound
+   * @return {Void}
+   */
   pause () {
     this.driver.pause()
   }
+  /**
+   * Stop the audio sound
+   * @return {Void}
+   */
   stop () {
-    this.driver.stop()
+    this.pause()
+    this.driver.currentTime = 0
   }
   /**
-   * [volume description]
-   * @param  {[type]} value [description]
-   * @return {[type]} [description]
+   * Change volume audio sound
+   *
+   * @param  {Integer} value the value of the volume
+   * @return {Void}
    */
   volume (value) {
     this.driver.volume = value / 100

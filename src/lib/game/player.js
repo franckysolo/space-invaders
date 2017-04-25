@@ -23,7 +23,6 @@
    constructor (name) {
      super(name, defaultOptions)
      this.name = name || 'Player 1'
-     this.init()
    }
    /**
     * Init the player params
