@@ -99,7 +99,7 @@
 
      if (this.onFire() && this.laser.state === config.BOMB_FIRE) {
        this.shoot()
-       this.soundBomb.play()
+       // this.soundBomb.play()
      }
 
      if (this.y + this.h >= game.bunkerZoneY - 10) {
