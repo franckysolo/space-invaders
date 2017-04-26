@@ -25,7 +25,7 @@
      this.w = this.options.dimension.w
      this.h = this.options.dimension.h
      this.mode = this.options.mode
-     this.speed = 1
+     this.speed = 2
      this.direction = null
      this.laser = null
      this.sprites = []
@@ -108,6 +108,7 @@
 
    shoot () {
      if (this.laser && this.laser.state === config.BOMB_FIRE) {
+       this.laser.tx = Math.floor(this.laser.x)
        this.laser.shoot()
      }
    }

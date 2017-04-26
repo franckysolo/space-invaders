@@ -17,6 +17,7 @@
      this.options = defaultOptions
      this.w = this.options.dimension.w
      this.h = this.options.dimension.h
+     this.tx = this.x
      this.speed = this.options.speed
      this.mode = config.BOMB_OPEN
      this.sprites = []
@@ -37,26 +38,18 @@
     * @param  {[type]} invader [description]
     * @return {[type]} [description]
     */
-   collision (game, invader) {
+   collision (game, invader, isRedShip = false) {
      // var c = null
      var ship = game.ship
      var laser = ship.laser
-     /*
-     var max = game.bunkerZoneY - this.h
-     if (this.y >= max && this.y <= max + game.bunkers[0].h) {
-       for (var k = 0; k < 4; k++) {
-         var b = game.bunkers[k]
-         if (b.isHit(this)) {
-           b.destruct(this)
-           this.state = config.BOMB_HIT
-           console.info('collision')
-           break
-         }
+     for (var k = 0; k < 4; k++) {
+       var b = game.bunkers[k]
+       if (b.bombCollision(this, !isRedShip)) {
+         this.state = config.BOMB_HIT
+         break
        }
      }
 
-     // if (null != c) c.destruct(this)
-     */
      if (this.hasCollision(ship, this)) {
        ship.mode = config.SHIP_EXPLODE
        this.state = config.BOMB_HIT
@@ -91,9 +84,11 @@
    }
 
    draw (ctx, sprite) {
-     if (this.mode !== config.BOMB_HIT) {
+     if (this.state === config.BOMB_FIRE) {
        let pos = this.sprites[this.mode]
        sprite.clip(ctx, pos.x, pos.y, this.w, this.h, this.x, this.y, this.w, this.h)
+     } else {
+       sprite.clear(ctx, 0, 0, this.w, this.h)
      }
    }
  }

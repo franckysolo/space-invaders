@@ -3,7 +3,7 @@
  *
  * @description The config game file
  */
-
+export const GO_ZONE = 70
 // Sizes sprites
 export const SZ_ROW = 4
 export const SZ_COL = 11

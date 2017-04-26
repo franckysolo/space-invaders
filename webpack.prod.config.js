@@ -1,7 +1,7 @@
 var webpack = require('webpack')
 var path = require('path')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
-
+console.log(process.env.NODE_ENV)
 module.exports = {
   entry: [
     './src/assets/less/main.less',
@@ -11,7 +11,6 @@ module.exports = {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js'
   },
-  watch: process.env.NODE_ENV === 'production' ? false : true,
   module: {
     rules: [
       {
@@ -48,6 +47,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"

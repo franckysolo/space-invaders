@@ -11,7 +11,7 @@ class SpaceInvaders {
     this.game = new Game()
     this.game.init()
     this.game.actions()
-    // $('#game-play').hide()
+    $('#game-play').hide()
   }
 
   // Main game loop
@@ -48,12 +48,12 @@ class SpaceInvaders {
   replay () {
     this.game.stop()
     this.game.player.level++
-    this.game.init()
     let fn = () => {
+      this.game.init()
+      this.game.actions()
       this.run()
-      this.game.status = config.GAME_Play
     }
-    setTimeout(fn, 1000)
+    setTimeout(fn, 2000)
   }
 
   pause () {

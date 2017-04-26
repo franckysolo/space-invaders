@@ -31,8 +31,8 @@
      this.offsetX = this.options.offsetX
      this.offsetY = this.options.offsetY
      this.margin = this.options.margin
-     this.speed = 1
-     this.offsetBottom = config.SZ_SPRITE_Y
+
+     this.offsetBottom = config.SZ_SPRITE_Y / 2
      this.mode = config.INV_OPEN
      this.direction = config.DIRECTION_LEFT
      // sprites
@@ -60,7 +60,7 @@
      this.timerCount = 0
      this.timerEmpty = 0
      this.timerDown = 0
-     this.delayDown = 10000
+     this.delayDown = 15000
      this.maxFrame = 16
      this.laser = null
      // Sounds
@@ -73,11 +73,12 @@
    }
 
    init (game) {
+     this.speed = game.player.level / 3
      var delay = this.delayDown - (1000 * game.player.level)
      if (delay < 1000) {
        delay = 1000
      }
-     // this.timerDown = setInterval(() => this.moveDown(), delay)
+     this.timerDown = setInterval(() => this.moveDown(), delay)
    }
 
    animate () {
@@ -93,16 +94,16 @@
    }
 
    evolution (game) {
-     if (this.onFire() && this.laser.state !== config.BOMB_HIT) {
+     if (this.onFire() && this.laser.state === config.BOMB_ARMED) {
        this.laser.state = config.BOMB_FIRE
+       this.soundBomb.play()
      }
 
      if (this.onFire() && this.laser.state === config.BOMB_FIRE) {
        this.shoot()
-       // this.soundBomb.play()
      }
 
-     if (this.y + this.h >= game.bunkerZoneY - 10) {
+     if (this.y + this.h >= game.yZone) {
        clearInterval(this.timerDown)
        game.ship.mode = config.SHIP_EXPLODE
        game.status = config.GAME_PAUSE
@@ -118,6 +119,7 @@
    }
 
    shoot () {
+     this.laser.tx = Math.floor(this.laser.x) // store trajectoire x
      this.laser.shoot()
    }
 
@@ -160,10 +162,8 @@
      if (this.onFire() && this.laser.state === config.BOMB_HIT) {
        delete this.laser
      }
-
-     if (this.laser && this.laser.y + this.laser.h > game.canvas.height) {
-       this.laser = null
-       window.alert('base detecetd')
+     if (this.laser && this.laser.y + this.laser.h > game.canvas.options.height) {
+       delete this.laser
      }
    }
 
@@ -181,10 +181,8 @@
    }
 
    moveDown () {
-     console.log('go down')
      this.y += this.offsetBottom
      this.maxFrame--
-     this.speed += 0.5
      if (this.maxFrame < 6) {
        this.maxFrame = 6
      }
