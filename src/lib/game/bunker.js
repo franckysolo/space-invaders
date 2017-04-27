@@ -59,16 +59,18 @@ class Bunker extends Asset {
     let yMax = this.resource.image.height
     for (var i = 0; i <= xMax; i++) {
       for (var j = 0; j <= yMax; j++) {
-        var cx = this.data[i][j].x
-        var cy = this.data[i][j].y
-        var v = this.data[i][j].v
-        if (x >= cx && x <= cx && y >= cy && v) {
-          if (isFragmentBomb) {
-            this.destroy(i, j, 4)
-          } else {
-            this.impact(i, j, 4)
+        if (this.data[i] && this.data[i][j]) {
+          var cx = this.data[i][j].x
+          var cy = this.data[i][j].y
+          var v = this.data[i][j].v
+          if (x >= cx && x <= cx && y >= cy && v) {
+            if (isFragmentBomb) {
+              this.destroy(i, j, 4)
+            } else {
+              this.impact(i, j, 4)
+            }
+            return true
           }
-          return true
         }
       }
     }
@@ -82,13 +84,15 @@ class Bunker extends Asset {
     let yMax = this.resource.image.height
     for (var i = yMax; i >= 0; i--) {
       for (var j = xMax; j >= 0; j--) {
-        var cx = this.data[j][i].x
-        var cy = this.data[j][i].y
-        var v = this.data[j][i].v
-        if (x >= cx && x <= cx && y <= cy && v) {
-          laser.state = config.LASER_HIT
-          this.destruct(j, i, 5)
-          break
+        if (this.data[j] && this.data[j][i]) {
+          var cx = this.data[j][i].x
+          var cy = this.data[j][i].y
+          var v = this.data[j][i].v
+          if (x >= cx && x <= cx && y <= cy && v) {
+            laser.state = config.LASER_HIT
+            this.destruct(j, i, 5)
+            break
+          }
         }
       }
     }
@@ -151,13 +155,15 @@ class Bunker extends Asset {
     let xMax = this.resource.image.width
     let yMax = this.resource.image.height
     ctx.fillStyle = '#00fc00'
-    for (var i = 0; i <= xMax; i++) {
-      for (var j = 0; j <= yMax; j++) {
-        var v = this.data[i][j].v
-        if (v) {
-          var x = i + this.x
-          var y = j + this.y
-          ctx.fillRect(x, y, 1, 1)
+    for (var i = 0; i < xMax; i++) {
+      for (var j = 0; j < yMax; j++) {
+        if (this.data[i] && this.data[i][j]) {
+          var v = this.data[i][j].v
+          if (v) {
+            var x = i + this.x
+            var y = j + this.y
+            ctx.fillRect(x, y, 1, 1)
+          }
         }
       }
     }
